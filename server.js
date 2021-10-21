@@ -33,8 +33,6 @@ app.use(
 // Controllers
 const userController = require('./controllers/users.js')
 app.use('/users', userController);
-const sessionController = require('./controllers/sessions.js')
-app.use('/sessions', sessionController);
 
 // Routes
 app.get('/' , (req, res) => {

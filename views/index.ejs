@@ -8,13 +8,12 @@
     <h2>Render order upon the chaos</h2>
     <% if (currentUser) { %>
       <p>Welcome <%=currentUser.username%></p>
-      <form action="/sessions?_method=DELETE" method="POST">
+      <form action="/users/session?_method=DELETE" method="POST">
         <input type="submit" value="Log out">
       </form>
     <% } else { %>
       <a href="/users/signup">Sign up</a>
-      <a href="/sessions/login">Log in</a>
+      <a href="/users/login">Log in</a>
     <% } %>
-
   </body>
 </html>
