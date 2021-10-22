@@ -3,6 +3,7 @@ const express = require('express');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const session = require('express-session');
+const Drawer = require('./models/drawers.js');
 
 // Configuration
 const app = express();
@@ -33,13 +34,25 @@ app.use(
 // Controllers
 const userController = require('./controllers/users.js')
 app.use('/users', userController);
+const drawerController = require('./controllers/drawers.js')
+app.use('/drawers', drawerController);
 
 // Routes
 app.get('/' , (req, res) => {
-  res.render('index.ejs', {
-    currentUser: req.session.currentUser,
-    tabTitle: 'Junk Droor'
-  });
+  if (req.session.currentUser) {
+    Drawer.find({id: {$in: req.session.currentUser.drawers}}, (err, foundDrawers) => {
+      res.render('index.ejs', {
+        drawers: foundDrawers,
+        currentUser: req.session.currentUser,
+        tabTitle: 'Junk Droor'
+      });
+    })
+  } else {
+    res.render('index.ejs', {
+      tabTitle: 'Junk Droor',
+      currentUser: req.session.currentUser,
+    });
+  }
 });
 
 //Listener

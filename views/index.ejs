@@ -4,16 +4,14 @@
     <%- include('./partials/head.ejs') %>
   </head>
   <body>
-    <h1>Junk Droor</h1>
-    <h2>Render order upon the chaos</h2>
+    <%- include('./partials/header.ejs') %>
     <% if (currentUser) { %>
-      <p>Welcome <%=currentUser.username%></p>
-      <form action="/users/session?_method=DELETE" method="POST">
-        <input type="submit" value="Log out">
-      </form>
-    <% } else { %>
-      <a href="/users/signup">Sign up</a>
-      <a href="/users/login">Log in</a>
+    <a href="/drawers/new">Create New Drawer</a>
+    <ul>
+      <% for (const drawer of drawers) { %>
+        <li><%=drawer.name%></li>
+      <% } %>
+    </ul>
     <% } %>
   </body>
 </html>
