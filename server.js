@@ -40,7 +40,7 @@ app.use('/drawers', drawerController);
 // Routes
 app.get('/' , (req, res) => {
   if (req.session.currentUser) {
-    Drawer.find({id: {$in: req.session.currentUser.drawers}}, (err, foundDrawers) => {
+    Drawer.find({_id: {$in: req.session.currentUser.drawers}}, (err, foundDrawers) => {
       res.render('index.ejs', {
         drawers: foundDrawers,
         currentUser: req.session.currentUser,
