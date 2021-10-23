@@ -12,6 +12,18 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
+// Show route
+drawers.get('/:id', isAuthenticated, (req, res) => {
+  const {id} = req.params;
+  Drawer.findById(id, (err, foundDrawer) => {
+    res.render('drawer.ejs', {
+      drawer: foundDrawer,
+      tabTitle: `Junk Droor | ${foundDrawer.name}`,
+      currentUser: req.session.currentUser
+    })
+  })
+});
+
 // New route
 drawers.get('/new', isAuthenticated, (req, res) => {
   res.render('new_drawer.ejs', {

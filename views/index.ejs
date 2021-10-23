@@ -9,7 +9,7 @@
     <a href="/drawers/new">Create New Drawer</a>
     <ul>
       <% for (const drawer of drawers) { %>
-        <li><%=drawer.name%></li>
+        <li><a href="/drawers/<%=drawer._id%>"><%=drawer.name%></a></li>
       <% } %>
     </ul>
     <% } %>
