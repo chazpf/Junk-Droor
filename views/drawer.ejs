@@ -7,10 +7,13 @@
     <%- include('./partials/header.ejs') %>
     <h1><%=drawer.name%></h1>
     <h3><%=drawer.location%></h3>
+    <a href="/drawers/<%=drawer._id%>/edit">Edit Drawer details</a>
     <% if (drawer.items[0]) { %>
-      <% for (const item in drawer.items) { %>
-        <p><%=item.name%></p>
-      <% } %>
+      <ul>
+        <% for (const item in drawer.items) { %>
+          <li><%=item.name%></li>
+        <% } %>
+      </ul>
     <% } else { %>
       <p>drawer empty</p>
     <% } %>

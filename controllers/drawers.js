@@ -20,8 +20,20 @@ drawers.get('/:id', isAuthenticated, (req, res) => {
       drawer: foundDrawer,
       tabTitle: `Junk Droor | ${foundDrawer.name}`,
       currentUser: req.session.currentUser
-    })
-  })
+    });
+  });
+});
+
+// Edit route
+drawers.get('/:id/edit', isAuthenticated, (req, res) => {
+  const {id} = req.params;
+  Drawer.findById(id, (err, foundDrawer) => {
+    res.render('edit_drawer.ejs', {
+      drawer: foundDrawer,
+      tabTitle: `Junk Droor | Edit: ${foundDrawer.name}`,
+      currentUser: req.session.currentUser
+    });
+  });
 });
 
 // New route

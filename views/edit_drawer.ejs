@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('./partials/header.ejs') %>
+    <h1>Editing <%=drawer.name%></h1>
+    <form action="index.html" method="post">
+      <label for="name"></label><input type="text" id="name" name="name" value="<%=drawer.name%>"></br>
+      <label for="location"></label><input type="text" id="location" name="location" value="<%=drawer.location%>"></br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
