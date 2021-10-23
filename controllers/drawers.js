@@ -12,6 +12,14 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
+// New route
+drawers.get('/new', isAuthenticated, (req, res) => {
+  res.render('new_drawer.ejs', {
+    tabTitle: 'Junk Droor | Create Drawer',
+    currentUser: req.session.currentUser
+  });
+});
+
 // Show route
 drawers.get('/:id', isAuthenticated, (req, res) => {
   const {id} = req.params;
@@ -36,14 +44,6 @@ drawers.get('/:id/edit', isAuthenticated, (req, res) => {
   });
 });
 
-// New route
-drawers.get('/new', isAuthenticated, (req, res) => {
-  res.render('new_drawer.ejs', {
-    tabTitle: 'Junk Droor | Create Drawer',
-    currentUser: req.session.currentUser
-  });
-});
-
 // Create route
 drawers.post('/', isAuthenticated, (req, res) => {
   req.body.owner = req.session.currentUser._id;
@@ -53,6 +53,18 @@ drawers.post('/', isAuthenticated, (req, res) => {
     User.findByIdAndUpdate(req.body.owner, {$push: {drawers: createdDrawer._id}}, {new: true}, (err, updatedUser) => {
       if (err) res.send('User update error: ' + err);
       req.session.currentUser = updatedUser;
+      res.redirect('/');
+    });
+  });
+});
+
+// Destroy route
+drawers.delete('/:id', (req, res) => {
+  const {id} = req.params;
+  Drawer.findByIdAndDelete(id, (err, deletedDrawer) => {
+    if (err) res.send('Drawer deletion error: ' + err);
+    User.findByIdAndUpdate(req.session.currentUser._id, {$pull: {drawers: deletedDrawer._id}}, {new: true}, (err, updatedUser) => {
+      if (err) res.send('Error removing Drawer from User: ' + err);
       res.redirect('/');
     });
   });
