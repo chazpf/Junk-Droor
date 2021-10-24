@@ -36,6 +36,8 @@ const userController = require('./controllers/users.js')
 app.use('/users', userController);
 const drawerController = require('./controllers/drawers.js')
 app.use('/drawers', drawerController);
+const itemController = require('./controllers/items.js')
+app.use('/items', itemController);
 
 // Routes
 app.get('/' , (req, res) => {

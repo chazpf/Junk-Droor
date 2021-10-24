@@ -6,8 +6,8 @@
   <body>
     <%- include('./partials/header.ejs') %>
     <form action="/drawers" method="POST">
-      <label for="name"></label><input type="text" id="name" name="name" placeholder="Name"></br>
-      <label for="location"></label><input type="text" id="location" name="location" placeholder="Location"></br>
+      <label for="name"></label><input type="text" id="name" name="name" placeholder="Name" required></br>
+      <label for="location"></label><input type="text" id="location" name="location" placeholder="Location" required></br>
       <input type="submit" value="Create">
     </form>
   </body>

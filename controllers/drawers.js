@@ -3,6 +3,7 @@ const express = require('express');
 const drawers = express.Router();
 const User = require('../models/users.js');
 const Drawer = require('../models/drawers.js');
+const Item = require('../models/items.js');
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.currentUser) {
@@ -24,10 +25,13 @@ drawers.get('/new', isAuthenticated, (req, res) => {
 drawers.get('/:id', isAuthenticated, (req, res) => {
   const {id} = req.params;
   Drawer.findById(id, (err, foundDrawer) => {
-    res.render('drawer.ejs', {
-      drawer: foundDrawer,
-      tabTitle: `Junk Droor | ${foundDrawer.name}`,
-      currentUser: req.session.currentUser
+    Item.find({_id: {$in: foundDrawer.items}}, (err, foundItems) => {
+      res.render('drawer.ejs', {
+        drawer: foundDrawer,
+        items: foundItems,
+        tabTitle: `Junk Droor | ${foundDrawer.name}`,
+        currentUser: req.session.currentUser
+      });
     });
   });
 });
@@ -55,6 +59,14 @@ drawers.post('/', isAuthenticated, (req, res) => {
       req.session.currentUser = updatedUser;
       res.redirect('/');
     });
+  });
+});
+
+// Update route
+drawers.put('/:id', (req, res) => {
+  const {id} = req.params;
+  Drawer.findByIdAndUpdate(id, req.body, {new: true}, (err, updatedDrawer) => {
+    res.redirect(`/drawers/${id}`);
   });
 });
 

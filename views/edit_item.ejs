@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('./partials/header.ejs') %>
+    <h1>Editing <%=item.name%></h1>
+    <form action="/items/<%=item._id%>?_method=PUT" method="POST">
+      <label for="name">Name: </label><input type="text" id="name" name="name" value="<%=item.name%>" required></br>
+      <label for="qty">Quanitity: </label><input type="number" id="qty" name="qty" value="<%=item.qty%>" required></br>
+      <label for="drawer">Drawer: </label>
+      <select id="drawer" name="drawer">
+        <% for (const drawer of drawers) { %>
+          <option value="<%=drawer._id%>"
+            <% if (drawer._id == oldDrawer) { %>
+              selected="selected"
+            <% } %>
+          ><%=drawer.name%></option>
+        <% } %>
+      </select></br>
+      <input type="hidden" name="oldDrawer" value="<%=oldDrawer%>">
+      <input type="submit" value="Submit">
+    </form>
+  </body>

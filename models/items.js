@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const itemSchema = Schema({
   name: { type: String, required: true },
   drawer: { type: String, required: true },
-  tags: [String]
+  qty: {type: Number, require: true, default: 1, min: 0},
 })
 
 const Item = mongoose.model('Item', itemSchema);
