@@ -13,6 +13,48 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
+// Index route
+drawers.get('/', isAuthenticated, (req, res) => {
+  if (req.query.search) {
+    const search = req.query.search;
+    Item.find({name: search, drawer: {$in: req.session.currentUser.drawers}}, 'drawer -_id', (err, foundItems) => {
+      if (foundItems.length === 1) {
+        Drawer.findById(foundItems[0].drawer, (err, foundDrawer) => {
+          res.redirect(`/drawers/${foundDrawer._id}`);
+        });
+      } else if (foundItems.length > 1) {
+        const drawers = foundItems.map(item => item.drawer);
+        Drawer.find({_id: {$in: drawers}}, (err, foundDrawers) => {
+          res.render('index.ejs', {
+            searchResult: 'Item found in multiple drawers:',
+            drawers: foundDrawers,
+            currentUser: req.session.currentUser,
+            tabTitle: 'Junk Droor'
+          });
+        });
+      } else {
+        Drawer.find({_id: {$in: req.session.currentUser.drawers}}, (err, foundDrawers) => {
+          res.render('index.ejs', {
+            searchResult: 'Item not found in any drawer.',
+            drawers: foundDrawers,
+            currentUser: req.session.currentUser,
+            tabTitle: 'Junk Droor'
+          });
+        });
+      }
+    });
+  } else {
+    Drawer.find({_id: {$in: req.session.currentUser.drawers}}, (err, foundDrawers) => {
+      res.render('index.ejs', {
+        searchResult: false,
+        drawers: foundDrawers,
+        currentUser: req.session.currentUser,
+        tabTitle: 'Junk Droor'
+      });
+    })
+  }
+});
+
 // New route
 drawers.get('/new', isAuthenticated, (req, res) => {
   res.render('new_drawer.ejs', {
