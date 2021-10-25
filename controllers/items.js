@@ -47,10 +47,16 @@ items.put('/:id', isAuthenticated, (req, res) => {
   }
   Item.findByIdAndUpdate(id, req.body, {new: true}, (err, updatedItem) => {
     if (drawer !== oldDrawer) {
-      Drawer.findByIdAndUpdate(oldDrawer, {$pull: {items: updatedItem._id}}, {new:true}, (err, updatedDrawer) => {});
-      Drawer.findByIdAndUpdate(drawer, {$push: {items: updatedItem._id}}, {new:true}, (err, updatedDrawer) => {});
+      Drawer.findByIdAndUpdate(oldDrawer, {$pull: {items: updatedItem._id}}, {new:true}, (err, updatedDrawer) => {
+        if (err) return res.send('Drawer update error: ' + err);
+        Drawer.findByIdAndUpdate(drawer, {$push: {items: updatedItem._id}}, {new:true}, (err, updatedDrawer) => {
+          if (err) return res.send('Drawer update error: ' + err);
+          res.redirect(`/drawers/${updatedItem.drawer}`);
+        });
+      });
+    } else {
+      res.redirect(`/drawers/${updatedItem.drawer}`);
     }
-    res.redirect(`/drawers/${updatedItem.drawer}`);
   });
 });
 
@@ -58,9 +64,9 @@ items.put('/:id', isAuthenticated, (req, res) => {
 items.delete('/:id', (req, res) => {
   const {id} = req.params;
   Item.findByIdAndDelete(id, (err, deletedItem) => {
-    if (err) res.send('Item deletion error: ' + err);
+    if (err) return res.send('Item deletion error: ' + err);
     Drawer.findByIdAndUpdate(deletedItem.drawer, {$pull: {items: deletedItem._id}}, {new: true}, (err, updatedDrawer) => {
-      if (err) res.send('Error removing Drawer from User: ' + err);
+      if (err) return res.send('Error removing Drawer from User: ' + err);
       res.redirect(`/drawers/${updatedDrawer._id}`);
     });
   });

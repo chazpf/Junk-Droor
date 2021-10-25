@@ -25,7 +25,9 @@ drawers.get('/new', isAuthenticated, (req, res) => {
 drawers.get('/:id', isAuthenticated, (req, res) => {
   const {id} = req.params;
   Drawer.findById(id, (err, foundDrawer) => {
+    if (err) return res.send('Drawer finding error: ' + err);
     Item.find({_id: {$in: foundDrawer.items}}, (err, foundItems) => {
+      if (err) return res.send('Item finding error: ' + err);
       res.render('drawer.ejs', {
         drawer: foundDrawer,
         items: foundItems,
@@ -40,6 +42,7 @@ drawers.get('/:id', isAuthenticated, (req, res) => {
 drawers.get('/:id/edit', isAuthenticated, (req, res) => {
   const {id} = req.params;
   Drawer.findById(id, (err, foundDrawer) => {
+    if (err) return res.send('Drawer finding error: ' + err);
     res.render('edit_drawer.ejs', {
       drawer: foundDrawer,
       tabTitle: `Junk Droor | Edit: ${foundDrawer.name}`,
@@ -53,9 +56,9 @@ drawers.post('/', isAuthenticated, (req, res) => {
   req.body.owner = req.session.currentUser._id;
   req.body.items = [];
   Drawer.create(req.body, (err, createdDrawer) => {
-    if (err) res.send('Drawer creation error: ' + err);
+    if (err) return res.send('Drawer creation error: ' + err);
     User.findByIdAndUpdate(req.body.owner, {$push: {drawers: createdDrawer._id}}, {new: true}, (err, updatedUser) => {
-      if (err) res.send('User update error: ' + err);
+      if (err) return res.send('User update error: ' + err);
       req.session.currentUser = updatedUser;
       res.redirect('/');
     });
@@ -66,6 +69,7 @@ drawers.post('/', isAuthenticated, (req, res) => {
 drawers.put('/:id', (req, res) => {
   const {id} = req.params;
   Drawer.findByIdAndUpdate(id, req.body, {new: true}, (err, updatedDrawer) => {
+    if (err) return res.send('Drawer update error: ' + err);
     res.redirect(`/drawers/${id}`);
   });
 });
@@ -74,9 +78,9 @@ drawers.put('/:id', (req, res) => {
 drawers.delete('/:id', (req, res) => {
   const {id} = req.params;
   Drawer.findByIdAndDelete(id, (err, deletedDrawer) => {
-    if (err) res.send('Drawer deletion error: ' + err);
+    if (err) return res.send('Drawer deletion error: ' + err);
     User.findByIdAndUpdate(req.session.currentUser._id, {$pull: {drawers: deletedDrawer._id}}, {new: true}, (err, updatedUser) => {
-      if (err) res.send('Error removing Drawer from User: ' + err);
+      if (err) return res.send('Error removing Drawer from User: ' + err);
       res.redirect('/');
     });
   });
