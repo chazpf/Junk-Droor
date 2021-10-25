@@ -126,9 +126,11 @@ drawers.delete('/:id', (req, res) => {
   const {id} = req.params;
   Drawer.findByIdAndDelete(id, (err, deletedDrawer) => {
     if (err) return res.send('Drawer deletion error: ' + err);
-    User.findByIdAndUpdate(req.session.currentUser._id, {$pull: {drawers: deletedDrawer._id}}, {new: true}, (err, updatedUser) => {
-      if (err) return res.send('Error removing Drawer from User: ' + err);
-      res.redirect('/');
+    Item.deleteMany({drawer: deletedDrawer._id}, (err, deletedItems) => {
+      User.findByIdAndUpdate(req.session.currentUser._id, {$pull: {drawers: deletedDrawer._id}}, {new: true}, (err, updatedUser) => {
+        if (err) return res.send('Error removing Drawer from User: ' + err);
+        res.redirect('/');
+      });
     });
   });
 });
