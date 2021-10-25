@@ -6,7 +6,14 @@
   <body>
     <%- include('./partials/header.ejs') %>
     <% if (currentUser) { %>
+    <form action="/" method="GET">
+      <label for="search"></label><input type="text" id="search" name="search" placeholder="search" required>
+      <input type="submit" value="SEARCH DRAWERS">
+    </form>
     <a href="/drawers/new">Create New Drawer</a>
+    <% if (searchResult) { %>
+      <p><strong><%=searchResult%></strong></p>
+    <% } %>
     <ul>
       <% for (const drawer of drawers) { %>
         <li><a href="/drawers/<%=drawer._id%>"><%=drawer.name%></a></li>
