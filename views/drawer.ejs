@@ -14,7 +14,12 @@
     <% if (items[0]) { %>
       <ul>
         <% for (const item of items) { %>
-          <li><%=item.name%>, <%=item.qty%> <a href="/items/<%=item._id%>/edit">Edit Item</a></li>
+          <li>
+            <span><%=item.name%>, <%=item.qty%> </span><a href="/items/<%=item._id%>/edit">Edit Item</a>
+            <form action="/items/<%=item._id%>?_method=DELETE" method="POST">
+              <input type="submit" value="DELETE ITEM">
+            </form>
+          </li>
         <% } %>
       </ul>
     <% } else { %>
