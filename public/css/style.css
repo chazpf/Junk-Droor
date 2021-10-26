@@ -1,3 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: beige;
+  width: 100vw;
+}
+
+li {
+  list-style: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid brown;
+  align-items: center;
+  padding: .5em 1em;
+  margin-bottom: 1em;
+}
+
+h1, h2 {
+  font-family: 'Holtwood One SC', serif;
+  margin: 0;
+}
+
+h2 {
+  font-size: .8em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#header-logo:hover {
+  text-decoration: underline;
+}
+
+#header-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#page-container {
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#index-create, #index-form, #search-result, .index-list {
+  margin-bottom: 1em;
+}
+
+#index-create {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: .5em;
+  font-size: 1.25em;
+}
+
+#index-form {
+  text-align: center;
+}
+
+.index-list {
+  height: 3em;
+  display: flex;
+  align-items: center;
+  padding: .5em;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.drawer-icon {
+  height: 2.5em;
+  margin-right: 1em;
+}
+
+.index-list a {
+  font-size: 2em;
 }

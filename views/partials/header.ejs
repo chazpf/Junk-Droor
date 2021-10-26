@@ -1,11 +1,17 @@
-<h1><a href="/">Junk Droor</a></h1>
-<h2>Render order upon the chaos</h2>
-<% if (currentUser) { %>
-  <p>Welcome <%=currentUser.username%></p>
-  <form action="/users/session?_method=DELETE" method="POST">
-    <input type="submit" value="Log out">
-  </form>
-<% } else { %>
-  <a href="/users/signup">Sign up</a>
-  <a href="/users/login">Log in</a>
-<% } %>
+<header>
+  <div id="header-logo">
+    <h1><a href="/">Junk Droor</a></h1>
+    <h2>Render order upon the chaos</h2>
+  </div>
+  <div id="header-user">
+    <% if (currentUser) { %>
+      <p>Welcome <%=currentUser.username%></p>
+      <form action="/users/session?_method=DELETE" method="POST">
+        <input type="submit" value="Log out">
+      </form>
+    <% } else { %>
+      <a href="/users/signup">Sign up</a>
+      <a href="/users/login">Log in</a>
+    <% } %>
+  </div>
+</header>

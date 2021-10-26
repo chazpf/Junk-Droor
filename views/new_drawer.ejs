@@ -5,10 +5,12 @@
   </head>
   <body>
     <%- include('./partials/header.ejs') %>
-    <form action="/drawers" method="POST">
-      <label for="name"></label><input type="text" id="name" name="name" placeholder="Name" required></br>
-      <label for="location"></label><input type="text" id="location" name="location" placeholder="Location" required></br>
-      <input type="submit" value="Create">
-    </form>
+    <div id="page-container">
+      <form action="/drawers" method="POST">
+        <label for="name"></label><input type="text" id="name" name="name" placeholder="Name" required></br>
+        <label for="location"></label><input type="text" id="location" name="location" placeholder="Location" required></br>
+        <input type="submit" value="Create">
+      </form>
+    </div>
   </body>
 </html>

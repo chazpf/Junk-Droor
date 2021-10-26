@@ -4,15 +4,18 @@
     <%- include('../partials/head.ejs') %>
   </head>
   <body>
-    <h1>Sign up</h1>
-    <a class="button" href="/">Back to Index</a>
-    <form action="/users" method="POST">
-      <label for="username">User Name:</label>
-      <input type="text" name="username" required/><br>
-      <label for="password">Password:</label>
-      <input type="password" name="password" />
-      <br>
-      <input type="submit" class="button" value="Submit">
-    <form>
+    <%- include('../partials/header.ejs') %>
+    <div id="page-container">
+      <h3>Sign up</h3>
+      <a class="button" href="/">Back to Index</a>
+      <form action="/users" method="POST">
+        <label for="username">User Name:</label>
+        <input type="text" name="username" required/><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" />
+        <br>
+        <input type="submit" class="button" value="Submit">
+      <form>
+    </div>
   </body>
 </html>

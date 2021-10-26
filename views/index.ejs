@@ -5,20 +5,22 @@
   </head>
   <body>
     <%- include('./partials/header.ejs') %>
-    <% if (currentUser) { %>
-    <form action="/drawers" method="GET">
-      <label for="search"></label><input type="text" id="search" name="search" placeholder="search" required>
-      <input type="submit" value="WHICH DRAWER DID I PUT THAT IN?">
-    </form>
-    <a href="/drawers/new">Create New Drawer</a>
-    <% if (searchResult) { %>
-      <p><strong><%=searchResult%></strong></p>
-    <% } %>
-    <ul>
-      <% for (const drawer of drawers) { %>
-        <li><a href="/drawers/<%=drawer._id%>"><%=drawer.name%></a></li>
+    <div id="page-container">
+      <% if (currentUser) { %>
+        <a id="index-create" href="/drawers/new">Create New Drawer</a>
+        <form id="index-form" action="/drawers" method="GET">
+          <label for="search"></label><input type="text" id="search" name="search" placeholder="search for item" required></br>
+          <input type="submit" value="WHICH DRAWER DID I PUT THAT IN?">
+        </form>
+        <% if (searchResult) { %>
+          <p id="search-result"><strong><%=searchResult%></strong></p>
+        <% } %>
+        <ul>
+          <% for (const drawer of drawers) { %>
+            <li class="index-list"><img class="drawer-icon" src="/img/drawer.png" alt="drawer icon"><a href="/drawers/<%=drawer._id%>"><%=drawer.name%></a></li>
+          <% } %>
+        </ul>
       <% } %>
-    </ul>
-    <% } %>
+    </div>
   </body>
 </html>

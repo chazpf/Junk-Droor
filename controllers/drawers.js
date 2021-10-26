@@ -101,7 +101,6 @@ drawers.get('/:id/edit', isAuthenticated, (req, res) => {
 // Create route
 drawers.post('/', isAuthenticated, (req, res) => {
   req.body.owner = req.session.currentUser._id;
-  req.body.items = [];
   Drawer.create(req.body, (err, createdDrawer) => {
     if (err) return res.send('Drawer creation error: ' + err);
     User.findByIdAndUpdate(req.body.owner, {$push: {drawers: createdDrawer._id}}, {new: true}, (err, updatedUser) => {

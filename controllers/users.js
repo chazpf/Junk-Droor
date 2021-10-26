@@ -31,7 +31,6 @@ users.get('/signup', isntAuthenticated, (req, res) => {
 // Create New User route
 users.post('/', isntAuthenticated, (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10));
-  req.body.drawers = [];
   User.create(req.body, (err, createdUser) => {
     res.redirect('/');
   });
