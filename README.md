@@ -8,7 +8,15 @@ Junk Droor is an organization app which can help you catalog the odd & ends in y
 [Link to the live site.](https://junkdroor.herokuapp.com/ "Junk Droor live hosted on Heroku")
 
 ***
+## User Stories
+- As a user, I want to create drawers and items to put inside drawers, to aid in organizing my physical belonging.
+- As a user, I want to include short descriptions on my drawers, to indicate their location in my home.
+- As a user, I want to search for a specific item to remember which drawer I've stored the item in.
+- As a user, I want to be able to reorganize my items into different drawers to keep track of them.
+- As a user, I want to delete discarded items, and delete unnecessary drawers, to keep my account clean and matching reality.
+- As a user, I don't want other users to be able to see my drawers and their contents, for privacy and security concerns.
 
+***
 ## Technologies Used
 
 #### EJS
