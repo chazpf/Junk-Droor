@@ -7,11 +7,11 @@
     <% if (currentUser) { %>
       <p>Welcome <%=currentUser.username%></p>
       <form action="/users/session?_method=DELETE" method="POST">
-        <input type="submit" value="Log out">
+        <input class="button" type="submit" value="Log out">
       </form>
     <% } else { %>
-      <a href="/users/signup">Sign up</a>
-      <a href="/users/login">Log in</a>
+      <a class="button header-signin" href="/users/signup">Sign up</a>
+      <a class="button" href="/users/login">Log in</a>
     <% } %>
   </div>
 </header>

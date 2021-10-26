@@ -7,15 +7,17 @@
     <%- include('../partials/header.ejs') %>
     <div id="page-container">
       <h3>Log In</h3>
-      <a href="/">Back to Index</a>
-      <form action="/users/login" method="POST">
+      <form id="user-form" action="/users/login" method="POST">
         <label for="username">User Name:</label>
         <input type="text" name="username" required/><br>
         <label for="password">Password:</label>
         <input type="password" name="password" />
         <br>
         <input type="submit" class="button" value="Submit">
-      <form>
+      </form>
+      <p>Don't have an account? Create one here:</p>
+      <a class="button" href="/users/signup">Sign up</a>
     </div>
+    <%- include('../partials/footer.ejs') %>
   </body>
 </html>

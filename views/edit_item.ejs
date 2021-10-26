@@ -10,7 +10,7 @@
       <form action="/items/<%=item._id%>?_method=PUT" method="POST">
         <label for="name">Name: </label><input type="text" id="name" name="name" value="<%=item.name%>" required></br>
         <label for="qty">Quanitity: </label><input type="number" id="qty" name="qty" value="<%=item.qty%>" required></br>
-        <label for="drawer">Drawer: </label>
+        <label for="drawer">Droor: </label>
         <select id="drawer" name="drawer">
           <% for (const drawer of drawers) { %>
             <option value="<%=drawer._id%>"
@@ -24,4 +24,5 @@
         <input type="submit" value="Submit">
       </form>
     </div>
+    <%- include('./partials/footer.ejs') %>
   </body>

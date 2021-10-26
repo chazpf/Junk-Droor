@@ -6,32 +6,36 @@
   <body>
     <%- include('./partials/header.ejs') %>
     <div id="page-container">
+      <img class="drawer-icon-show" src="/img/drawer.png" alt="droor icon">
       <h1><%=drawer.name%></h1>
-      <h3><%=drawer.location%></h3>
-      <a href="/drawers/<%=drawer._id%>/edit">Edit Drawer details</a>
+      <h3 id="drawer-location">Location: <%=drawer.location%></h3>
+      <a id="drawer-edit" class="button" href="/drawers/<%=drawer._id%>/edit">Edit Droor details</a>
       <form action="/drawers/<%=drawer._id%>?_method=DELETE" method="POST">
-        <input type="submit" value="DELETE DRAWER">
+        <input id="drawer-delete" class="button" type="submit" value="DELETE DROOR">
       </form>
       <% if (items[0]) { %>
-        <ul>
+        <h3>Items:</h3>
+        <ul id="item-ul">
           <% for (const item of items) { %>
-            <li>
-              <span><%=item.name%>, <%=item.qty%> </span><a href="/items/<%=item._id%>/edit">Edit Item</a>
-              <form action="/items/<%=item._id%>?_method=DELETE" method="POST">
-                <input type="submit" value="DELETE ITEM">
+            <li class="item-list">
+              <form  action="/items/<%=item._id%>?_method=DELETE" method="POST">
+                <input class="button item-delete" type="submit" value="X">
               </form>
+              <span><%=item.name%>: <%=item.qty%></span><a class="button edit-item" href="/items/<%=item._id%>/edit">Edit Item</a>
             </li>
           <% } %>
         </ul>
       <% } else { %>
-        <p>drawer empty</p>
+        <h3>droor empty</h3>
       <% } %>
-      <form action="/items" method="POST">
+      </br>
+      <form id="add-item-form" action="/items" method="POST">
         <label for="name">Name: </label><input type="text" id="name" name="name" placeholder="Name" required></br>
         <label for="qty">Quantity: </label><input type="number" id="qty" name="qty" value="1" required></br>
         <input type="hidden" id="drawer" name="drawer" value="<%=drawer._id%>"></br>
-        <input type="submit" value="Add Item">
+        <input id="item-create" class="button" type="submit" value="Add Item">
       </form>
     </div>
+    <%- include('./partials/footer.ejs') %>
   </body>
 </html>

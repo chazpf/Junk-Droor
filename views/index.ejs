@@ -7,20 +7,29 @@
     <%- include('./partials/header.ejs') %>
     <div id="page-container">
       <% if (currentUser) { %>
-        <a id="index-create" href="/drawers/new">Create New Drawer</a>
+        <a id="index-create" class="button" href="/drawers/new">Create New Droor</a>
         <form id="index-form" action="/drawers" method="GET">
           <label for="search"></label><input type="text" id="search" name="search" placeholder="search for item" required></br>
-          <input type="submit" value="WHICH DRAWER DID I PUT THAT IN?">
+          <input class="button" type="submit" value="WHICH DROOR DID I PUT THAT IN?">
         </form>
         <% if (searchResult) { %>
           <p id="search-result"><strong><%=searchResult%></strong></p>
         <% } %>
         <ul>
           <% for (const drawer of drawers) { %>
-            <li class="index-list"><img class="drawer-icon" src="/img/drawer.png" alt="drawer icon"><a href="/drawers/<%=drawer._id%>"><%=drawer.name%></a></li>
+            <li class="index-list"><a href="/drawers/<%=drawer._id%>"><img class="drawer-icon-index" src="/img/drawer.png" alt="drawer icon"><p><%=drawer.name%></p></a></li>
           <% } %>
         </ul>
+      <% } else { %>
+        <div id="logged-out-container">
+          <p>Welcome to Junk Droor, a organization app you can use to catalog the odds & ends you've accumulated in the oft-neglected junk droors all households contain.</p></br>
+          <p>Create an account here to get started:</p>
+          <a class="button" href="/users/signup">Sign up</a></br>
+          <p>Log in here if you've made an account:</p>
+          <a class="button" href="/users/login">Log in</a>
+        </div>
       <% } %>
     </div>
+    <%- include('./partials/footer.ejs') %>
   </body>
 </html>

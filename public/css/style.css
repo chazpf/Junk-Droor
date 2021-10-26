@@ -2,11 +2,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Catamaran', sans-serif;
 }
 
 body {
   background-color: beige;
   width: 100vw;
+}
+
+input[type="submit"] {
+  background-color: rgba(0,0,0,0);
 }
 
 li {
@@ -20,15 +25,20 @@ header {
   align-items: center;
   padding: .5em 1em;
   margin-bottom: 1em;
+  background-color: rgba(155, 37, 37, 0.2);
 }
 
-h1, h2 {
+h1, h1 *, h2 {
   font-family: 'Holtwood One SC', serif;
   margin: 0;
 }
 
+h1 {
+  font-size: 1.5em;
+}
+
 h2 {
-  font-size: .8em;
+  font-size: .6em;
 }
 
 a {
@@ -36,7 +46,7 @@ a {
   color: black;
 }
 
-#header-logo:hover {
+header h1:hover {
   text-decoration: underline;
 }
 
@@ -44,6 +54,14 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.header-signin {
+  margin-bottom: .1em;
+}
+
+#header-user p{
+  text-align: right;
 }
 
 #page-container {
@@ -55,14 +73,38 @@ a {
   align-items: center;
 }
 
+#logged-out-container {
+  width: 90%;
+  max-width: 500px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-form {
+  margin-bottom: 1em;
+}
+
 #index-create, #index-form, #search-result, .index-list {
   margin-bottom: 1em;
 }
 
-#index-create {
+.button {
   border: 2px solid black;
   border-radius: 20px;
-  padding: .5em;
+  padding: .15em .25em 0 .25em;
+
+  transition: background-color .5s;
+}
+
+.button:hover {
+  background-color: rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+#index-create, #drawer-edit {
   font-size: 1.25em;
 }
 
@@ -70,7 +112,7 @@ a {
   text-align: center;
 }
 
-.index-list {
+.index-list a {
   height: 3em;
   display: flex;
   align-items: center;
@@ -80,11 +122,100 @@ a {
   width: fit-content;
 }
 
-.drawer-icon {
+.drawer-icon-index {
   height: 2.5em;
   margin-right: 1em;
 }
 
-.index-list a {
+.index-list p {
   font-size: 2em;
+}
+
+.drawer-icon-show {
+  height: 4em;
+  margin-bottom: .5em;
+}
+
+#drawer-location, #drawer-delete {
+  margin-bottom: 1em;
+}
+
+ #drawer-delete {
+  margin-top: .25em;
+  padding: .25em .25em 0 .25em;
+  border-radius: 20px;
+  color: darkred;
+
+  transition:  background-color .5s;
+}
+
+ #drawer-delete:hover {
+  background-color: rgba(200, 0, 0, .5)
+ }
+
+#item-ul {
+  width: 90%;
+  max-width: 350px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1% 1% 0 1%;
+}
+
+.item-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: .25em;
+}
+
+.edit-item {
+  font-size: .75em;
+  padding: .25em;
+}
+
+.item-delete {
+  background-color: rgba(0,0,0,0);
+  border: 0;
+  cursor: pointer;
+  color: darkred;
+  font-weight: bold;
+}
+
+#add-item-form {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: .5em;
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: .25em 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(155, 37, 37, 0.2);
+  border-top: 2px solid brown;
+}
+
+#footer-container {
+  display: flex;
+}
+
+footer p {
+  margin-right: 1em;
+}
+
+.footer-icon {
+  height: 1em;
+}
+
+@media (min-width: 480px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: .8em;
+  }
 }
