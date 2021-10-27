@@ -30,9 +30,16 @@ users.get('/signup', isntAuthenticated, (req, res) => {
 
 // Create New User route
 users.post('/', isntAuthenticated, (req, res) => {
-  req.body.password = bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10));
-  User.create(req.body, (err, createdUser) => {
-    res.redirect('/');
+  User.find({}, 'username -_id', (err, allUsers) => {
+    const usernames = allUsers.map(user => user.username);
+    if (usernames.includes(req.body.username)) {
+      res.send('Username already taken');
+    } else {
+      req.body.password = bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10));
+      User.create(req.body, (err, createdUser) => {
+        res.redirect('/');
+      });
+    }
   });
 });
 

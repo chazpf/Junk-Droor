@@ -63,11 +63,6 @@ drawers.get('/new', isAuthenticated, (req, res) => {
   });
 });
 
-// Search route
-drawers.get('/search', isAuthenticated, (req, res) => {
-
-});
-
 // Show route
 drawers.get('/:id', isAuthenticated, (req, res) => {
   const {id} = req.params;
