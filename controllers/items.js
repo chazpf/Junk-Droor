@@ -30,6 +30,7 @@ items.get('/:id/edit', isAuthenticated, (req, res) => {
 
 // Create route
 items.post('/', isAuthenticated, (req, res) => {
+  if (req.body.qty < 0) req.body.qty = 0;
   Item.create(req.body, (err, createdItem) => {
     Drawer.findByIdAndUpdate(req.body.drawer, {$push: {items: createdItem._id}}, {new: true}, (err, updatedDrawer) => {
       res.redirect(`/drawers/${updatedDrawer._id}`);
