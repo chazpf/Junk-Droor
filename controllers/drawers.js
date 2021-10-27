@@ -68,15 +68,19 @@ drawers.get('/:id', isAuthenticated, (req, res) => {
   const {id} = req.params;
   Drawer.findById(id, (err, foundDrawer) => {
     if (err) return res.send('Drawer finding error: ' + err);
-    Item.find({_id: {$in: foundDrawer.items}}, (err, foundItems) => {
-      if (err) return res.send('Item finding error: ' + err);
-      res.render('drawer.ejs', {
-        drawer: foundDrawer,
-        items: foundItems,
-        tabTitle: `Junk Droor | ${foundDrawer.name}`,
-        currentUser: req.session.currentUser
+    if (foundDrawer.owner === req.session.currentUser._id) {
+      Item.find({_id: {$in: foundDrawer.items}}, (err, foundItems) => {
+        if (err) return res.send('Item finding error: ' + err);
+        res.render('drawer.ejs', {
+          drawer: foundDrawer,
+          items: foundItems,
+          tabTitle: `Junk Droor | ${foundDrawer.name}`,
+          currentUser: req.session.currentUser
+        });
       });
-    });
+    } else {
+      res.redirect('/drawers');
+    }
   });
 });
 
@@ -85,11 +89,15 @@ drawers.get('/:id/edit', isAuthenticated, (req, res) => {
   const {id} = req.params;
   Drawer.findById(id, (err, foundDrawer) => {
     if (err) return res.send('Drawer finding error: ' + err);
-    res.render('edit_drawer.ejs', {
-      drawer: foundDrawer,
-      tabTitle: `Junk Droor | Edit: ${foundDrawer.name}`,
-      currentUser: req.session.currentUser
-    });
+    if (foundDrawer.owner === req.session.currentUser._id) {
+      res.render('edit_drawer.ejs', {
+        drawer: foundDrawer,
+        tabTitle: `Junk Droor | Edit: ${foundDrawer.name}`,
+        currentUser: req.session.currentUser
+      });
+    } else {
+      res.redirect('/drawers');
+    }
   });
 });
 

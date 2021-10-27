@@ -16,14 +16,20 @@ const isAuthenticated = (req, res, next) => {
 items.get('/:id/edit', isAuthenticated, (req, res) => {
   const {id} = req.params;
   Drawer.find({_id: {$in: req.session.currentUser.drawers}}, (err, foundDrawers) => {
+    if (err) return res.send('Drawer find error: ' + err);
+    const drawerIds = foundDrawers.map(drawer => drawer._id.toString());
     Item.findById(id, (err, foundItem) => {
-      res.render('edit_item.ejs', {
-        item: foundItem,
-        oldDrawer: foundItem.drawer,
-        drawers: foundDrawers,
-        tabTitle: `Junk Droor | Edit: ${foundItem.name}`,
-        currentUser: req.session.currentUser
-      });
+      if (drawerIds.includes(foundItem.drawer)) {
+        res.render('edit_item.ejs', {
+          item: foundItem,
+          oldDrawer: foundItem.drawer,
+          drawers: foundDrawers,
+          tabTitle: `Junk Droor | Edit: ${foundItem.name}`,
+          currentUser: req.session.currentUser
+        });
+      } else {
+        res.redirect('/drawers');
+      }
     });
   });
 });
