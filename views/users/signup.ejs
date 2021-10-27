@@ -6,7 +6,10 @@
   <body>
     <%- include('../partials/header.ejs') %>
     <div id="page-container">
-      <h3>Sign up</h3>
+      <h1>Sign up</h1>
+      <% if (error) { %>
+        <h3><%=error%></h3>
+      <% } %>
       <form id="user-form" action="/users" method="POST">
         <label for="username">User Name:</label>
         <input type="text" name="username" required/><br>
