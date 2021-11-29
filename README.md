@@ -44,5 +44,5 @@ To construct this application, I first needed to create the User model and enabl
 ***
 
 ## Future Features
-- Improved visuals. I have a vision that the drawers would be part of a large cabinet graphic that would be animated in 3D.
-- Drag & Drop funcitonality to move items between drawers.
+- Improved visuals. drawers could be part of a large cabinet graphic that would be animated, potentially in 3D.
+- Drag & Drop functionality to move items between drawers.
